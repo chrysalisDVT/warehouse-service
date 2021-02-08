@@ -18,10 +18,6 @@ class WarehouseController @Autowired constructor(
     fun getWarehouseInventory() =
         WarehouseVO(warehouseInventory = warehouseService.getWarehouseInformation())
 
-    @GetMapping("{id}")
-    fun getById(@PathVariable("id") id: String) {
-        print(id)
-    }
 
     @PatchMapping
     fun updateWarehouseInventory(@RequestBody warehouseVO: WarehouseVO) :Mono<WarehouseVO>{
