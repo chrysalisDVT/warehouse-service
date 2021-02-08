@@ -24,20 +24,22 @@ class WarehouseController @Autowired constructor(
     }
 
     @PatchMapping
-    fun updateWarehouseInventory(@RequestBody warehouseVO: WarehouseVO) {
+    fun updateWarehouseInventory(@RequestBody warehouseVO: WarehouseVO) :Mono<WarehouseVO>{
         if(!warehouseVO.warehouseInventory.isNullOrEmpty()){
             println(warehouseVO)
             warehouseService.updateInventoryByArtIds(warehouseVO ,true)
+            return Mono.just(WarehouseVO(operationStatus = true))
         }else{
             throw WarehouseControllerException(EXCEPTION_CODE.BAD_REQUEST,"Invalid request body")
         }
     }
 
     @PostMapping
-    fun addWarehouseInventory(@RequestBody warehouseVO: WarehouseVO) {
+    fun addWarehouseInventory(@RequestBody warehouseVO: WarehouseVO) :Mono<WarehouseVO>{
         if(!warehouseVO.warehouseInventory.isNullOrEmpty()){
             println(warehouseVO)
             warehouseService.updateInventoryByArtIds(warehouseVO ,false)
+            return Mono.just(WarehouseVO(operationStatus = true))
         }else{
             throw WarehouseControllerException(EXCEPTION_CODE.BAD_REQUEST,"Invalid request body")
         }
